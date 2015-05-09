@@ -5,4 +5,4 @@ clf = GradientBoostingClassifier(n_estimators = 1000, subsample = .8, max_featur
 n1 = ot.make_guess_csv(clf,name='turkeytest')
 n2 = ot.make_guess_csv(clf2,name='turkeytest')
 
-ot.combine_results(clf_list=[n1,n2])
+ot.combine_results(clf_list=[n1,n2],voting='soft')
