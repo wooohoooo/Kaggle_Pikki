@@ -240,7 +240,7 @@ def make_guess_csv(clf,features =True,name = 'test',which_slice = 0,how_many_sli
     
 
 
-def load_all_dfs(clf_list = ['test_small','rt_small','test2_small']):
+def load_all_dfs(clf_list = ['test_small','test2_small']):#,'rt_small']):
     """loads all the csv files that end with specification in clf_list
     in multiindex DataFrame. first row is specification, second is index
     
@@ -273,7 +273,7 @@ def load_all_dfs(clf_list = ['test_small','rt_small','test2_small']):
 
 
 
-def combine_results(voting = 'hard',clf_list = ['test_small','rt_small','test2_small']):
+def combine_results(voting = 'hard',clf_list = ['test_small','test2_small']):
     """combines two or more classifier outputs. 
     by now only uses hard voting by standard deviation 
     (more std means higher values which ~ means higher confidence)
@@ -301,6 +301,32 @@ def combine_results(voting = 'hard',clf_list = ['test_small','rt_small','test2_s
         print("doing god's work")
         df_new = df.ix[index]
         df_new = df.ix[label_tupel_list]
+        
+     #### new###   
+    if voting == 'soft':
+        clsfr1 = clf_list[0]
+        clsfr2 = clf_list[1]
+        print('softvoting')
+        df = df.reset_index()
+        df1 = df[df.df==clsfr1]
+        df2 = df[df.df==clsfr2]
+        std1 = df1['std']
+        std2 = df2['std']
+        df1 = df1.drop('id',axis=1)
+        df2 = df2.drop('id',axis=1)
+        df1 = df1.drop('df',axis=1)
+        df2 = df2.drop('df',axis=1)
+        df1 = df1.drop('std',axis=1)
+        df2 = df2.drop('std',axis=1)
+
+        df1_new = df1.pow(std1.values,axis = 0)#pd.DataFrame(df1.values**std1.values, columns = df1.columns, index=df1.index)
+        df2_new = df2.pow(std2.values,axis=0)#pd.DataFrame(df2.values**std2.values, columns = df2.columns, index=df2.index)
+        df_new = pd.DataFrame(df1_new.values*df2_new.values, columns=df1.columns, index=df1.index)
+        df_new = df_new.div(df_new.sum(axis=1), axis=0)
+
+
+  ####endnew              
+        
     end = time.clock()
     print('done', end-start)
     #return df_new
@@ -315,15 +341,19 @@ def combine_results(voting = 'hard',clf_list = ['test_small','rt_small','test2_s
       'Class_7',
       'Class_8',
       'Class_9']
-    df_new2 = df_new.reset_index()
-    del df_new2['std']
-    del df_new2['id']
-    del df_new2['df']
+    try:
+        df_new2 = df_new.reset_index()
+
+        del df_new2['std']
+        del df_new2['id']
+        del df_new2['df']
+    except:
+        df_new2 = df_new
 
     print('zero')
     try:
      print('first')
-     clf_names = 'with_'
+     clf_names = voting +'_'
      print('second')
      for i in range(len(clf_list)):
          print(clf_list[i])
