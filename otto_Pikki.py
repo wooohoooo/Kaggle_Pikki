@@ -365,11 +365,17 @@ def combine_results(voting = 'hard',clf_list = ['test_small','test2_small']):
 
      print('written to')
      print('Pikki'+clf_names+ '.csv')
-     
-     df_new2.to_csv('combined_Pikki'+clf_names+ '.csv',header = cols,index_label = ['id'])
+     name = 'combined_Pikki'+clf_names+ '.csv'
+     df_new2.to_csv(name,header = cols,index_label = ['id'])
     except:
         df_new2.to_csv('combined_Pikki.csv',header = cols,index_label = ['id'])
-    return df_new    
+    return df_new
+
+def vote(clf_list=['test_small','test2_small']):
+    a = combine_results(clf_list=clf_list,voting='soft')
+    #clf_list2 = 
+    clf_list.append('soft__'+clf_list[0]+'_'+clf_list[1])
+    b = combine_results(clf_list=clf_list,voting='hard')
 
 
 
