@@ -1,0 +1,40 @@
+1.2
+shape
+(144368, 657)
+(657.0, 1)
+shape new
+(144368, 657)
+shape
+(61878, 657)
+(657.0, 1)
+shape new
+(61878, 657)
+written to Pikkiturkeytestslice_num_0num_slice_1_noshuf_.csv
+20639.74
+1.15
+shape
+(144368, 657)
+(657.0, 1)
+shape new
+(144368, 657)
+shape
+(61878, 657)
+(657.0, 1)
+shape new
+(61878, 657)
+/usr/lib/python2.7/dist-packages/numpy/lib/utils.py:1132: DeprecationWarning: The compiler package is deprecated and removed in Python 3.x.
+  import compiler
+written to Pikkiturkeytestslice_num_0num_slice_1_noshuf_.csv
+87.66
+loading data
+10.5
+('combining the data and voting ', 'soft')
+softvoting
+('done', 11.139999999999418)
+zero
+first
+second
+turkeytestslice_num_0num_slice_1_noshuf_
+turkeytestslice_num_0num_slice_1_noshuf_
+written to
+Pikkisoft__turkeytestslice_num_0num_slice_1_noshuf__turkeytestslice_num_0num_slice_1_noshuf_.csv
